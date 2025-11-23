@@ -5,7 +5,7 @@ Este proyecto nace como un **MVP** orientado a proporcionar claridad financiera 
 
 ---
 
-## 🚀 Características principales (MVP)
+## 🚀 Características principales (MVP) 
 
 ### 🔐 Autenticación
 - Registro e inicio de sesión con **Supabase Auth**
