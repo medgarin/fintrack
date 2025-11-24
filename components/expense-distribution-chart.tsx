@@ -45,7 +45,7 @@ export function ExpenseDistributionChart() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ porcentaje }) => `${porcentaje}%`}
+                label={({ porcentaje }: any) => `${porcentaje}%`}
                 outerRadius={100}
                 innerRadius={60}
                 fill="#8884d8"

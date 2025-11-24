@@ -2,6 +2,8 @@
 
 import { createClient } from '@/utils/supabase/server'
 
+import { getProjections } from './advanced-actions'
+
 export async function getDashboardData() {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -86,6 +88,18 @@ export async function getDashboardData() {
 
     const categoryData = Array.from(categoryMap.values())
 
+    // Fetch top expenses
+    const { data: topExpenses } = await supabase
+        .from('expenses')
+        .select('id, description, amount, date, category_id, categories(name, color)')
+        .gte('date', startOfMonth)
+        .lte('date', endOfMonth)
+        .order('amount', { ascending: false })
+        .limit(5)
+
+    // ... inside getDashboardData
+    const projections = await getProjections()
+
     return {
         summary: {
             totalIncome,
@@ -98,6 +112,8 @@ export async function getDashboardData() {
             incomeVsExpenses: incomeVsExpensesData,
             categoryDistribution: categoryData,
         },
-        goals: goals || []
+        goals: goals || [],
+        topExpenses: topExpenses || [],
+        projections
     }
 }
